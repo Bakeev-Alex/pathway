@@ -2,7 +2,7 @@
 name = "pathway"
 version = "0.1.0"
 description = ""
-authors = ["alexey <aleksei.bakeev@strana.com>"]
+authors = ["alexey <baki.alexey@yandex.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -10,6 +10,7 @@ python = "^3.12"
 fastapi = "^0.115.6"
 uvicorn = "^0.34.0"
 folium = "^0.19.2"
+gpxpy = "^1.6.2"
 
 
 [build-system]
