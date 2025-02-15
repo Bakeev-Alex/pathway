@@ -14,7 +14,7 @@ app = FastAPI()
 coordinates = []
 
 # Подключение статических файлов (карта HTML)
-app.mount("/templates", StaticFiles(directory="templates"), name="templates")
+# app.mount("/templates", StaticFiles(directory="templates"), name="templates")
 
 
 # Модель координат
@@ -30,25 +30,12 @@ async def show_map():
     coordinates = [
         {
             'id': 1,
-            'latitude': 57.815863,
-            'longitude': 28.347319
+            'latitude': 57.792093,
+            'longitude': 28.209667
         }
     ]
-    if not os.path.exists("templates/map.html"):
-        create_map(coordinates)  # Генерируем карту, если её нет
-    with open("templates/map.html", "r", encoding="utf-8") as f:
-        return HTMLResponse(content=f.read())
-
-
-@app.post("/add_coordinates")
-async def add_coordinates(coord: Coordinate):
-    # Добавляем новую координату
-    coordinates.append(coord.dict())
-    create_map(coordinates)  # Обновляем карту
-    return JSONResponse({"status": "success", "coordinates": coordinates})
-
-
-@app.get("/get_coordinates")
-async def get_coordinates():
-    # Возвращаем список всех координат
-    return JSONResponse({"coordinates": coordinates})
+    # Формирование html карты
+    # todo: Возможно не нужно ее генерировать каждый раз
+    #  Подумать, как отслеживать события изменения.
+    html_map = create_map(coordinates)
+    return HTMLResponse(content=html_map)
