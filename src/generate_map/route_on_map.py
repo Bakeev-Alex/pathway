@@ -7,7 +7,7 @@ import folium
 
 
 def get_gpx():
-    with open('source/route_on_map.gpx', 'r') as gpx_file:
+    with open('src/source/route_on_map.gpx', 'r') as gpx_file:
         gpx = gpxpy.parse(gpx_file)
     return gpx
 

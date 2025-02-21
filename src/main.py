@@ -6,7 +6,7 @@ import uvicorn
 import os
 
 # Импорт функции для создания карты
-# from generate_map import create_map
+from src.generate_map import create_map
 
 app = FastAPI()
 
@@ -24,10 +24,17 @@ class Coordinate(BaseModel):
     longitude: float
 
 
-@app.get("/wait")
-def wait():
-    duration = 1.
-    return {"duration": duration}
+@app.get("/", response_class=HTMLResponse)
+async def wait():
+    coordinates = [
+        {
+            'id': 1,
+            'latitude': 57.792093,
+            'longitude': 28.209667
+        }
+    ]
+    html_map = create_map(coordinates)
+    return HTMLResponse(content=html_map)
 
 # @app.get("/", response_class=HTMLResponse)
 # async def show_map():

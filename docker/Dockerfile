@@ -10,9 +10,9 @@ RUN apk add --no-cache \
 RUN pip install --upgrade pip
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
-RUN mkdir /src
-COPY pyproject.toml poetry.lock /src/
-WORKDIR /src/
+RUN mkdir /app
+COPY pyproject.toml poetry.lock /app/
+WORKDIR /app/
 RUN poetry install -vv --no-root
 
-COPY / /src/
+COPY / /app/
