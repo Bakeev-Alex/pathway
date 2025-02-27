@@ -11,6 +11,12 @@ fastapi = "^0.115.6"
 uvicorn = "^0.34.0"
 folium = "^0.19.2"
 gpxpy = "^1.6.2"
+sqlalchemy = "^2.0.38"
+alembic = "^1.14.1"
+mypy = "^1.15.0"
+aiogram = "^3.18.0"
+dotenv = "^0.9.9"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
