@@ -26,6 +26,7 @@ class Coordinate(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def wait():
+    # Координаты начальной точки.
     coordinates = [
         {
             'id': 1,

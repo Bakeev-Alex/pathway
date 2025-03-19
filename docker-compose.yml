@@ -1,14 +1,21 @@
-version: "3.8"
-
 services:
   app:
     image: "${APP_IMAGE:-catalog_app:latest}"
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/backend/Dockerfile
     command: uvicorn src.main:app --host 0.0.0.0 --port 80
     ports:
       - 9000:80
+    depends_on:
+      - db
+    volumes:
+      - ./:/src
+
+  bot:
+    build:
+      context: .
+      dockerfile: docker/bot/Dockerfile
     depends_on:
       - db
     volumes:

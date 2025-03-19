@@ -2,15 +2,20 @@
 name = "pathway"
 version = "0.1.0"
 description = ""
-authors = ["alexey <baki.alexey@yandex.ru>"]
+authors = ["alexey <aleksei.bakeev@strana.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.115.6"
+fastapi = "^0.115.11"
 uvicorn = "^0.34.0"
-folium = "^0.19.2"
+folium = "^0.19.5"
 gpxpy = "^1.6.2"
+sqlalchemy = "^2.0.39"
+alembic = "^1.15.1"
+mypy = "^1.15.0"
+aiogram = "^3.19.0"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
