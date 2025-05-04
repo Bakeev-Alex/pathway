@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/src
+      - .:/app
 
   bot:
     build:
@@ -19,10 +19,10 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/src
+      - ./:/app
 
   db:
-    image: postgres
+    image: postgres:16
     container_name: pathway_db
     restart: unless-stopped
     environment:
