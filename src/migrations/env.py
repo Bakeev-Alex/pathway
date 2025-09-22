@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 from database import Base
 
-from models.user import User
+from models import User, ImagePoint, CoordinatePoint
 load_dotenv()
 
 # alembic revision --autogenerate -m "Initial migration"
