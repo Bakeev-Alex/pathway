@@ -16,8 +16,12 @@ services:
     build:
       context: .
       dockerfile: docker/bot/Dockerfile
+    container_name: telegram_bot
     depends_on:
       - db
+      - app
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - ./:/app
 

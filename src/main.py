@@ -1,9 +1,6 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
-import uvicorn
-import os
 
 # Импорт функции для создания карты
 from src.generate_map import create_map
@@ -12,10 +9,6 @@ app = FastAPI()
 
 # Хранилище координат
 coordinates = []
-
-# Подключение статических файлов (карта HTML)
-# app.mount("/templates", StaticFiles(directory="templates"), name="templates")
-
 
 # Модель координат
 class Coordinate(BaseModel):

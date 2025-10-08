@@ -1,14 +1,15 @@
-import asyncio
 import logging
 import os
-from aiogram import Bot, Dispatcher, types
-from aiogram.types import ContentType
-from aiogram.filters import Command
-from aiogram.types import BotCommand
-# from config import BOT_TOKEN
+
+import asyncio
+
 from dotenv import load_dotenv
+
+from aiogram import Dispatcher
+from aiogram.types import BotCommand
 from aiogram import Bot
-from routers import command_start, share_location_route
+
+from src.telegram_bot.routers import command_start, share_location_route
 
 # todo: Необходимо реализовать через класс.
 
