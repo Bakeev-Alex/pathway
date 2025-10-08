@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 from dotenv import load_dotenv
 
-from database import Base
+from src.database import Base
 
 from models import User, ImagePoint, CoordinatePoint
 load_dotenv()

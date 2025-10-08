@@ -2,6 +2,7 @@ FROM python:3.12-alpine
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONPATH=/app
 
 RUN apk add --no-cache \
     curl
@@ -17,4 +18,4 @@ RUN poetry install -vv --no-root
 
 COPY / /app/
 
-CMD ["python", "src/telegram_bot/main_tg.py"]
+CMD ["python", "-m", "src.telegram_bot.main_tg"]

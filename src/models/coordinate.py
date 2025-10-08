@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import Column, String, Text, UUID, ForeignKey
 from sqlalchemy.orm import relationship
 
-from database import Base
+from src.database import Base
 
 
 class CoordinatePoint(Base):

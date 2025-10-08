@@ -1,9 +1,9 @@
 import uuid
 
-from sqlalchemy import Column, Integer, String, Text, UUID, ForeignKey
+from sqlalchemy import Column, String, UUID
 from sqlalchemy.orm import relationship
 
-from database import Base
+from src.database import Base
 
 
 class ImagePoint(Base):
