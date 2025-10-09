@@ -2,18 +2,13 @@ from aiogram.filters import Command
 from aiogram.fsm.state import State, StatesGroup
 from aiogram import Router, F
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ContentType, Message, ReplyKeyboardRemove
-
-from src.services import coordinate_service
+from aiogram.fsm.context import FSMContext
 # import aiogram.utils.markdown as fmt
 
-from aiogram.fsm.context import FSMContext
-from aiogram.types import (
-    Message,
-)
+from src.services import coordinate_service, user_service
+
 
 share_location_route = Router()
-
-# todo: Так же нужно добавить отмену на каждый шаг процесса.
 
 
 class ShareLocationState(StatesGroup):
@@ -25,7 +20,6 @@ class ShareLocationState(StatesGroup):
 @share_location_route.message(Command('share_location'))
 async def position_handler(message: Message, state: FSMContext):
     """Вступительное сообщение для получения координат по нажатию на кнопку."""
-    # todo: Было бы классно проверять пользователя, что есть в системе и передавать id его, до сохранения данных.
     location_keyboard = ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text='Отправить координаты', request_location=True)],
@@ -36,6 +30,9 @@ async def position_handler(message: Message, state: FSMContext):
     # todo: Тут можно поймать ошибку, что координаты можно отправить из телефона только, надо ее обработать.
 
     await message.answer('Отправь координаты.', reply_markup=location_keyboard)
+
+    if not await user_service.check_user(message.from_user.id):
+        await user_service.create_user_from_message(message)
 
     await state.set_state(ShareLocationState.coordinates)
 
@@ -61,8 +58,6 @@ async def get_comments_with_image(message: Message, state: FSMContext):
 
     data = await state.get_data()
 
-    user_id = "d4eebf98-2d1a-46a4-8f3c-40eb247cbbcc"
-
     if message.photo:
         photo_file_id = message.photo[-1].file_id
         message_text = message.caption
@@ -80,10 +75,8 @@ async def get_comments_with_image(message: Message, state: FSMContext):
             'latitude': str(data.get("latitude")),
             'longitude': str(data.get("longitude")),
             'message': message_text,
-            'user_id': 'd4eebf98-2d1a-46a4-8f3c-40eb247cbbcc'
+            'user_id': f'{message.from_user.id}'
         }
         await coordinate_service.create_coordinate(save_data)
-    # todo: В случаи добавления изображений, это может долго обрабатываться,
-    #  по этому нужно делать celery или отправлять пользователю, что все готово, а самому обновлять.
 
     await state.clear()

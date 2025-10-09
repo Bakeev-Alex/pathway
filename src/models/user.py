@@ -1,23 +1,27 @@
 import uuid
 
-from sqlalchemy import Column, String, Text, UUID, ForeignKey
+from sqlalchemy import Column, String, UUID, Boolean
 from sqlalchemy.orm import relationship
 
 from src.database import Base
 
 
 class User(Base):
-    """Модель пользователя."""
-    # todo: Для этой модели нужно создать простую регистрацию, которая будет привязываться к tg_id и в случае
-    #  Не корректного поведения пользователя, блокировать его.
+    """
+    Модель пользователя.
 
-    # todo: Так же во всех методах нужно проверять, что пользователь зарегистрирован и просить его пройти регистрацию
-    #  Только после этого, пользователь может оставить свои координаты
+    Arguments:
+        tg_id (str): ID пользователя в телеграмм
+        first_name (str): Имя
+        last_name (str): Фамилия
+        is_active (bool): Активность
+        username (str): Имя пользователя в телеграмм
+    """
     __tablename__ = "users"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
-    # todo: Мне кажется эти поля избыточные, можно просто сохранять tg_id и имя, которые есть в tg.
+    tg_id = Column(String(150), primary_key=True, index=True)
     first_name = Column(String(100), )
-    last_name = Column(String(100), )
-    tg_id = Column(String(50), nullable=False)
+    last_name = Column(String(100), nullable=True)
+    is_active = Column(Boolean, default=True)
+    username = Column(String(100), nullable=True)
 
     points = relationship("CoordinatePoint", back_populates="user", cascade="all, delete-orphan")
